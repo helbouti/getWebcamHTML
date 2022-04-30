@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title>Camera with mediaDevice</title>
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.4.0/brython.min.js"></script>
+</head>
+
+<body onload="brython()">
+<h1>Brython webcam example</h1>
+<div id='main'><div>
+
+<script type="text/python">
+import browser 
+from browser import html, document, window
+
+aa = document['main']
+
+videotag = html.VIDEO(id='video', width='320', height='240')
+aa.html = ""
+aa <= videotag
+
+from javascript import JSObject
+createUrl = JSObject(window.URL.createObjectURL)
+
+def OnSuccess(stream):
+  video = document['video']
+  video.src = createUrl(stream)
+  video.play()
+
+browser.window.navigator.mediaDevices.getUserMedia(
+    {"video": True, "audio": False}
+    ).then(OnSuccess)
+</script>
+</body>
+</html>
